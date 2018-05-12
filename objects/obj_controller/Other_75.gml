@@ -19,7 +19,11 @@ switch(async_load[? "event_type"])
     show_debug_message("controller slot " + string(i) + " connected");
     show_debug_message("controller number " + string(global.players[i]) + " connected");
     with ( instance_create_layer(x,y,"Instances_1", get_character(i))) {
-        padIndex =  i;
+        padIndex = global.players[i];
+		if (i >= 4)
+		{
+		global.players[i] = noone;
+		}
     }
 }
 break;
@@ -28,9 +32,11 @@ case "gamepad lost":
         if(global.players[i] == async_load[? "pad_index"]){
             show_debug_message("controller slot " + string(i) + " disconnected");
             show_debug_message("controller number " + string(global.players[i]) + " disconnected");
-            i = noone;
-            break;
-        }
+			if (i <= 3)
+			{
+			global.players[i] = noone;
+			}
+		}
     }
 break;
 }

@@ -1,17 +1,24 @@
-///scr_move(device,deadzone);
-dvc = argument0;
-dzn = argument1;
-
-move_up = keyboard_check(vk_up);
-move_down = keyboard_check(vk_down);
-move_left =keyboard_check(vk_left);
-move_right =keyboard_check(vk_right);
-
-xx = move_right-move_left;
-yy = move_down-move_up;
-
-if (gamepad_is_connected(dvc)){
-gamepad_set_axis_deadzone(dvc,dzn)
-xx=gamepad_axis_value(dvc,gp_axislh);
-yy=gamepad_axis_value(dvc,gp_axislv);
+/// @func scr_move(device,deadzone)
+/// @param device
+/// @param deadzone
+padIndex = argument0;
+deadzone = argument1;
+if (gamepad_is_connected(padIndex)){
+gamepad_set_axis_deadzone(padIndex,deadzone);
+	if (gamepad_axis_value(padIndex,gp_axislh) > 0)
+	{
+		x += 6;
+	}
+	if (gamepad_axis_value(padIndex,gp_axislh) < 0)
+	{
+		x -= 6;
+	}
+	if (gamepad_axis_value(padIndex,gp_axislv) > 0)
+	{
+		y += 6;
+	}
+	if (gamepad_axis_value(padIndex,gp_axislv) < 0)
+	{
+		y -= 6;
+	}
 }
